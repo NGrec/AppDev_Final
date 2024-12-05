@@ -1,6 +1,5 @@
 import { Video } from "expo-av";
-import { useMemo } from "react";
-import { Animated, Text, StyleSheet, View, ScrollView, ImageBackground } from "react-native";
+import { Animated, StyleSheet, View} from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
 import AppHeading from "../components/HomeScreen/AppHeading";
@@ -8,7 +7,6 @@ import AppButton from "../components/HomeScreen/AppButton";
 
 export default function App() {
   const navigation = useNavigation();
-  const opacity = useMemo(() => new Animated.Value(0), []);
 
   return (
     <View style={styles.container}>
@@ -31,7 +29,7 @@ export default function App() {
             </AppHeading>
             <AppButton 
                 title="GO"
-                onPress={() => navigation.navigate('Music')}
+                onPress={() => navigation.navigate('Genres')}
             />
       </View>
     </View>

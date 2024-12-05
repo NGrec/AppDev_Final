@@ -1,73 +1,89 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView, ImageBackground, Image } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Image, Dimensions } from "react-native";
+import { Video } from "expo-av";
 
 export default function MoodsScreen() {
     const moods = [
-        { name: "CHILL", backgroundColor: "#ECFF42", image: require('../assets/chill.png') },
-        { name: "GROOVY", backgroundColor: "#17FE5E", image: require('../assets/groovy.png') },
-        { name: "HYPE", backgroundColor: "#FF00B7", image: require('../assets/hype.png') },
-        { name: "GOOFY", backgroundColor: "#0026FF", image: require('../assets/goofy.png') },
-        { name: "ANGRY", backgroundColor: "#B350FF", image: require('../assets/angry.png') },
+        { name: "CHILL", backgroundColor: "#ECFF42A1", image: require('../assets/chill.png') },
+        { name: "GROOVY", backgroundColor: "#17FE5EA1", image: require('../assets/groovy.png') },
+        { name: "HYPE", backgroundColor: "#FF00B7A1", image: require('../assets/hype.png') },
+        { name: "GOOFY", backgroundColor: "#0026FFA1", image: require('../assets/goofy.png') },
+        { name: "ANGRY", backgroundColor: "#B350FFA1", image: require('../assets/angry.png') },
     ];
 
     return (
-        <ImageBackground
-            source={require('../assets/VideoBgReal.jpg')}
-            style={styles.background}
-        >
-            <ScrollView style={styles.container}>
+        <View style={styles.container}>
+            <Video
+                isLooping
+                isMuted
+                resizeMode="cover"
+                shouldPlay
+                source={require("../assets/videoBG.mp4")}
+                style={styles.backgroundVideo}
+            />
+            <ScrollView>
                 <View style={styles.header}>
                     <Text style={styles.headerText}>MOODS</Text>
                 </View>
                 {moods.map((mood, index) => (
                     <View
                         key={index}
-                        style={[styles.mood, { backgroundColor: mood.backgroundColor }]}
+                        style={[styles.mood, { backgroundColor: mood.backgroundColor, overflow: 'hidden'}]}
+                        
                     >
                         <Text style={styles.moodText}>{mood.name}</Text>
                         <Image source={mood.image} style={styles.moodImage} />
                     </View>
                 ))}
             </ScrollView>
-        </ImageBackground>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    background: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-    },
     container: {
         flex: 1,
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
+    },
+    backgroundVideo: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
     },
     header: {
-        padding: 20,
+        padding: 40,
         alignItems: "center",
+        backgroundColor: "#000",
     },
     headerText: {
-        color: "#FFF",
+        color: "#FFFFFF",
         fontSize: 80,
         fontWeight: "bold",
     },
     mood: {
         height: 180,
-        flexDirection: "row", // Arrange items in a row
-        justifyContent: "space-between", // Space between text and image
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
         alignItems: "center",
+        position: "relative",
     },
     moodImage: {
-        width: "40%",
+        width: "60%",
         height: "100%",
-        marginTop: 50,
-        objectFit: "contain",
+        position: "absolute",
+        resizeMode: "contain",
+        bottom: 0,
+        right: -50, 
     },
     moodText: {
         fontSize: 40,
-        fontWeight: "bold",
-        color: "#1E1E1E",
+        fontWeight: "900",
+        color: "#000",
         marginLeft: 40,
+        fontStyle: "italic",
     },
 });
