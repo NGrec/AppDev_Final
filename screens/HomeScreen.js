@@ -1,11 +1,13 @@
 import { Video } from "expo-av";
 import { useMemo } from "react";
 import { Animated, Text, StyleSheet, View, ScrollView, ImageBackground } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 import AppHeading from "../components/HomeScreen/AppHeading";
 import AppButton from "../components/HomeScreen/AppButton";
 
 export default function App() {
+  const navigation = useNavigation();
   const opacity = useMemo(() => new Animated.Value(0), []);
 
   return (
@@ -15,6 +17,7 @@ export default function App() {
             isLooping
             isMuted
             resizeMode="cover"
+            shouldPlay
             source={require("../assets/videoBG.mp4")}
             style={{ flex: 1 }}
           />
