@@ -1,107 +1,92 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, FlatList, ImageBackground, Image, Text, ActivityIndicator } from "react-native";
-import { useNavigation } from '@react-navigation/native';
-import AppHeading from "../components/UsersScreen/AppHeading";
-import AppListStyles from '../components/UsersScreen/AppList';
-import { userData } from '../data/dataUsers';
+import React from 'react';
+import { StyleSheet, View, Text, FlatList, Image } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import moodImage from '../assets/chillWhite.png';
 
-const UNSPLASH_ACCESS_KEY = 'aNxP9refdi4urLevhY5RYjIgrXAL_lepQLrW8iULCi4';
+const UsersScreen = () => {
+  // Sample data for the tracks
+  const tracks = [
+    { title: 'Track 1', artist: 'Artist 1' },
+    { title: 'Track 2', artist: 'Artist 2' },
+    { title: 'Track 3', artist: 'Artist 3' },
+    { title: 'Track 4', artist: 'Artist 4' },
+    { title: 'Track 5', artist: 'Artist 5' },
+  ];
 
-export default function UsersScreen() {
-    const navigation = useNavigation();
-    const [data, setData] = useState([]);
-    const [backgroundImage, setBackgroundImage] = useState('');
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchBackgroundImage = async () => {
-            try {
-                const response = await fetch(
-                    `https://api.unsplash.com/search/photos?query=dance-music&client_id=${UNSPLASH_ACCESS_KEY}`
-                );
-                const json = await response.json();
-                const imageUrl = json.results[0]?.urls?.regular || '';
-                setBackgroundImage(imageUrl);
-            } catch (error) {
-                console.error("Error fetching background image:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        const fetchImages = async () => {
-            const updatedData = await Promise.all(
-                userData.map(async (item) => {
-                    const response = await fetch(
-                        `https://api.unsplash.com/search/photos?query=${item.searchTerm}&client_id=${UNSPLASH_ACCESS_KEY}`
-                    );
-                    const json = await response.json();
-                    const imageUrl = json.results[0]?.urls?.small || '';
-                    return { ...item, genreImage: { uri: imageUrl } };
-                })
-            );
-            setData(updatedData);
-        };
-
-        fetchBackgroundImage();
-        fetchImages();
-    }, []);
-
-    const renderItem = ({ item }) => (
-        <View style={AppListStyles.card}>
-            <View style={AppListStyles.itemContainer}>
-                <Text style={AppListStyles.song}>{item.song}</Text>
-                <Text style={AppListStyles.album}>{item.album}</Text>
-                <Text style={AppListStyles.artist}>{item.artist}</Text>
+  return (
+    <View style={styles.container}>
+      <View style={styles.cloudContainer}>
+        <Image source={moodImage} style={styles.moodImage} />
+        <Text style={styles.moodText}>CHILL</Text>
+      </View>
+      <FlatList
+        data={tracks}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          <View style={styles.trackContainer}>
+            <View style={styles.trackInfo}>
+              <Text style={styles.titleText}>Title</Text>
+              <Text style={styles.titleText}>{item.title}</Text>
             </View>
-            <Image source={item.genreImage} style={AppListStyles.genreImage} />
-        </View>
-    );
-
-    if (loading) {
-        return (
-            <View style={styles.loaderContainer}>
-                <ActivityIndicator size="large" color="#0000ff" />
+            <View style={styles.trackInfo}>
+              <Text style={styles.artistText}>Artist</Text>
+              <Text style={styles.artistText}>{item.artist}</Text>
             </View>
-        );
-    }
-
-    return (
-        <ImageBackground 
-            source={{ uri: backgroundImage }}
-            style={styles.background}
-        >
-            <View style={styles.container}>
-                <AppHeading headingStyle='h1'>your picks.</AppHeading>
-                <AppHeading headingStyle='h2'>todays vibe - goofy.</AppHeading>
-                <FlatList
-                    data={data}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                    contentContainerStyle={AppListStyles.listContainer}
-                    showsVerticalScrollIndicator={false}
-                />
-            </View>
-        </ImageBackground>
-    );
-}
+            <Feather name="more-vertical" size={24} color="#fff" />
+          </View>
+        )}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    background: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-    },
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        padding: 20,
-    },
-    loaderContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#0072C6',
+    position: "relative",
+
+  },
+  cloudContainer: {
+    alignItems: 'center',
+    marginBottom: 0,
+    height: 350,
+  },
+  moodImage: {
+    width: "100%",
+    height: "55%",
+    marginTop: 40,
+    objectFit: "contain",
+  },
+  moodText: {
+    marginTop: 8,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 0,
+    padding: 0,
+  },
+  trackContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    marginBottom: 12,
+  },
+  trackInfo: {
+    flex: 1,
+  },
+  titleText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  artistText: {
+    fontSize: 14,
+    color: '#fff',
+  },
 });
+
+export default UsersScreen;
