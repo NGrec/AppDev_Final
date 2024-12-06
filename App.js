@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import HomeScreen from './screens/HomeScreen';
 import ChillScreen from './screens/ChillScreen';
+import GroovyScreen from './screens/GroovyScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import GenresScreen from './screens/GenresScreen';
 
@@ -40,8 +41,18 @@ export default function App() {
                 }}
             />
             <Tab.Screen
-                name='Music'
+                name='Chill'
                 component={ ChillScreen }
+                options={{
+                  tabBarIcon: ({color, size}) => (
+                    <MaterialCommunityIcons color={color} size={size} name="music" />
+                  )
+                }}
+            />
+
+            <Tab.Screen
+                name='Groovy'
+                component={ GroovyScreen }
                 options={{
                   tabBarIcon: ({color, size}) => (
                     <MaterialCommunityIcons color={color} size={size} name="music" />
