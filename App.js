@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import HomeScreen from './screens/HomeScreen';
-import UsersScreen from './screens/UsersScreen';
+import ChillScreen from './screens/ChillScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import GenresScreen from './screens/GenresScreen';
 
@@ -41,7 +41,7 @@ export default function App() {
             />
             <Tab.Screen
                 name='Music'
-                component={ UsersScreen }
+                component={ ChillScreen }
                 options={{
                   tabBarIcon: ({color, size}) => (
                     <MaterialCommunityIcons color={color} size={size} name="music" />

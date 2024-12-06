@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, FlatList, Image } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import moodImage from '../assets/chillWhite.png';
 
-const UsersScreen = () => {
+const ChillScreen = () => {
   // Sample data for the tracks
   const tracks = [
     { title: 'Track 1', artist: 'Artist 1' },
@@ -89,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UsersScreen;
+export default ChillScreen;
