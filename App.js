@@ -6,6 +6,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import HomeScreen from './screens/HomeScreen';
 import ChillScreen from './screens/ChillScreen';
 import GroovyScreen from './screens/GroovyScreen';
+import HypeScreen from './screens/HypeScreen';
+import GoofyScreen from './screens/GoofyScreen';
+import AngryScreen from './screens/AngryScreen';
+import SongDetails from './screens/SongDetails';
 import ProfileScreen from './screens/ProfileScreen';
 import GenresScreen from './screens/GenresScreen';
 
@@ -59,6 +63,48 @@ export default function App() {
                   )
                 }}
             />
+
+            <Tab.Screen
+                name='Hype'
+                component={ HypeScreen }
+                options={{
+                  tabBarIcon: ({color, size}) => (
+                    <MaterialCommunityIcons color={color} size={size} name="music" />
+                  )
+                }}
+            />
+
+            <Tab.Screen
+                name='Goofy'
+                component={ GoofyScreen }
+                options={{
+                  tabBarIcon: ({color, size}) => (
+                    <MaterialCommunityIcons color={color} size={size} name="music" />
+                  )
+                }}
+            />
+
+            <Tab.Screen
+                name='Angry'
+                component={ AngryScreen }
+                options={{
+                  tabBarIcon: ({color, size}) => (
+                    <MaterialCommunityIcons color={color} size={size} name="music" />
+                  )
+                }}
+            />
+
+          <Tab.Screen
+                name='Song'
+                component={ SongDetails }
+                options={{
+                  tabBarIcon: ({color, size}) => (
+                    <MaterialCommunityIcons color={color} size={size} name="music" />
+                  )
+                }}
+            />
+
+
             <Tab.Screen
                 name='Profile'
                 component={ ProfileScreen }
