@@ -10,7 +10,6 @@ import HypeScreen from './screens/HypeScreen';
 import GoofyScreen from './screens/GoofyScreen';
 import AngryScreen from './screens/AngryScreen';
 import SongDetails from './screens/SongDetails';
-import ProfileScreen from './screens/ProfileScreen';
 import GenresScreen from './screens/GenresScreen';
 
 const Tab = createBottomTabNavigator();
@@ -104,16 +103,6 @@ export default function App() {
                 }}
             />
 
-
-            <Tab.Screen
-                name='Profile'
-                component={ ProfileScreen }
-                options={{
-                  tabBarIcon: ({color, size}) => (
-                    <MaterialCommunityIcons color={color} size={size} name="account-music" />
-                  )
-                }}
-            />
         </Tab.Navigator>
     </NavigationContainer>
 );
